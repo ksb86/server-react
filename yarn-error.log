@@ -1,0 +1,55 @@
+Arguments: 
+  /Users/shane.barnwell/.nvm/versions/node/v6.11.4/bin/node /Users/shane.barnwell/.yarn/bin/yarn.js
+
+PATH: 
+  /Users/shane.barnwell/.nvm/versions/node/v6.11.4/bin:/Users/shane.barnwell/node_modules/.bin:/Users/shane.barnwell/.yarn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.1.0
+
+Node version: 
+  6.11.4
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "server-react",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT"
+  
+  "scripts": {
+    "start": "node ./dist/server",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.11.1",
+    "webpack": "^3.8.1",
+    "webpack-node-externals": "^1.2.0"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "styled-components": "^2.2.4"
+  }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  SyntaxError: /Users/shane.barnwell/GIT/Personal/server-react/package.json: Unexpected string in JSON at position 92
+      at Object.parse (native)
+      at /Users/shane.barnwell/.yarn/lib/cli.js:764:59
+      at next (native)
+      at step (/Users/shane.barnwell/.yarn/lib/cli.js:92:30)
+      at /Users/shane.barnwell/.yarn/lib/cli.js:103:13
