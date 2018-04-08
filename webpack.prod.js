@@ -2,25 +2,22 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const pkg = require('./package.json');
 
 module.exports = [{
     // SERVER
+    target: 'node',
+    node: {
+        __dirname: false
+    },
     entry: './src/server.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'server.js',
         publicPath: '/'
     },
-    target: 'node',
     externals: nodeExternals(),
-    plugins: [
-        new ExtractTextPlugin('public/styles.css'),
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: `'production'`
-            }
-        })
-    ],
     module: {
         rules: [
             {
@@ -36,7 +33,8 @@ module.exports = [{
                         {
                             loader: 'css-loader',
                             options: {
-                                importLoaders: 1
+                                importLoaders: 1,
+                                minimize: true
                             }
                         },
                         'less-loader'
@@ -44,19 +42,29 @@ module.exports = [{
                 )
             }
         ]
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin(`public/${pkg.name}.${pkg.version}.min.css`),
+        new UglifyJsPlugin({
+            sourceMap: false,
+            uglifyOptions: { ecma: 8 }
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        })
+    ]
 }, {
     // CLIENT
     entry: './src/client/index.js',
     output: {
         path: path.resolve(__dirname, 'dist/public'),
-        filename: 'client.js'
+        filename: `${pkg.name}.${pkg.version}.min.js`
     },
     node: {
         __dirname: false
     },
     target: 'web',
-    devtool: 'source-map',
+    // devtool: 'source-map',
     module: {
         rules: [
             {
@@ -72,7 +80,8 @@ module.exports = [{
                         {
                             loader: 'css-loader',
                             options: {
-                                importLoaders: 1
+                                importLoaders: 1,
+                                minimize: true
                             }
                         },
                         'less-loader'
@@ -82,9 +91,10 @@ module.exports = [{
         ]
     },
     plugins: [
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin(`${pkg.name}.${pkg.version}.min.css`),
+        new UglifyJsPlugin(),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development')
+            'process.env.NODE_ENV': JSON.stringify('production')
         })
     ]
 }];

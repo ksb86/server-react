@@ -4,16 +4,16 @@
  * application code into before sending it to the client as regular HTML.
  * Note we're returning a template string from this function.
  */
-const Html = ({title, body}) => `
+const Html = ({title, body, cssPath, jsPath}) => `
   <!DOCTYPE html>
   <html>
     <head>
       <title>${title}</title>
-      <link rel="stylesheet" href="./styles.css">
+      <link rel="stylesheet" href="${cssPath}">
     </head>
     <body>
       <div id="root">${body}</div>
-      <script src="./client.js"></script>
+      <script src="${jsPath}"></script>
     </body>
   </html>
 `;

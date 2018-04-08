@@ -16,18 +16,21 @@ server.use(express.static('dist/public'));
 
 server.get('/', (req, res) => {
 
-    const title = 'Server side Rendering';
+    const title = 'React Server Rendering';
     // create html string of app body to insert into html template
     const body = renderToString(
         <Provider store={store}>
             <App/>
         </Provider>
     );
-
+    const cssPath = (process.env.NODE_ENV === 'production'? './server-react.1.0.0.min.css' : './styles.css');
+    const jsPath = (process.env.NODE_ENV === 'production'? './server-react.1.0.0.min.js' : './client.js');
     res.send(
         Html({
             title,
-            body
+            body,
+            cssPath,
+            jsPath
         })
     );
 });

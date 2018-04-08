@@ -21836,7 +21836,7 @@ var _Counter = __webpack_require__(64);
 
 var _Counter2 = _interopRequireDefault(_Counter);
 
-__webpack_require__(68);
+__webpack_require__(67);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21977,8 +21977,7 @@ var updateAppData = exports.updateAppData = function updateAppData(payload) {
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 67 */,
-/* 68 */
+/* 67 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
