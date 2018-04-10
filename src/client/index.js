@@ -8,8 +8,8 @@ const store = createStore(reducers)
 import App from './App';
 
 hydrate(
-    <Provider store={store}>
-        <App/>
-    </Provider>,
+    // <Provider store={store}>
+        <App data={window.data}/>,
+    // </Provider>,
     document.getElementById('root')
 );
