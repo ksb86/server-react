@@ -31,7 +31,6 @@ server.get('*', (req, res, next) => {
         const title = 'React Server Rendering';
         // create html string of app body to insert into html template
 
-        console.log(req.url);
         const body = renderToString(
             // <Provider store={store}>
                 <StaticRouter location={req.url} context={context}>
