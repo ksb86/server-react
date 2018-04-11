@@ -5,7 +5,7 @@ class Bar extends Component {
         return (
             <div>
                 <h2>React rendering on Server and Client with Redux (bar)</h2>
-                <div>bar component</div>
+                <div>Bar component</div>
             </div>
         );
     };

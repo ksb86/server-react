@@ -51,11 +51,14 @@ module.exports = [{
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.DefinePlugin({
+            __isBrowser__: 'false'
         })
     ]
 }, {
-    // CLIENT
-    entry: './src/client/index.js',
+    // BROWSER
+    entry: './src/browser.js',
     output: {
         path: path.resolve(__dirname, 'dist/public'),
         filename: `${pkg.name}.${pkg.version}.min.js`
@@ -95,6 +98,9 @@ module.exports = [{
         new UglifyJsPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.DefinePlugin({
+            __isBrowser__: 'false'
         })
     ]
 }];

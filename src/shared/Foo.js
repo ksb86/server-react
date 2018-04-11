@@ -5,7 +5,7 @@ class Foo extends Component {
         return (
             <div>
                 <h2>React rendering on Server and Client with Redux (foo)</h2>
-                <div>bar component</div>
+                <div>Foo component</div>
             </div>
         );
     };

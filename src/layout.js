@@ -6,14 +6,14 @@ import serialize from "serialize-javascript";
  * application code into before sending it to the client as regular HTML.
  * Note we're returning a template string from this function.
  */
-const Html = ({title, body, cssPath, jsPath, data}) => `
+const Layout = ({title, body, cssPath, jsPath, data}) => `
   <!DOCTYPE html>
   <html>
     <head>
       <title>${title}</title>
       <link rel="stylesheet" href="${cssPath}">
-      <script src="${jsPath}" defer></script>
       <script>window.data = ${serialize(data)}</script>
+      <script src="${jsPath}" defer></script>
     </head>
     <body>
       <div id="root">${body}</div>
@@ -21,4 +21,4 @@ const Html = ({title, body, cssPath, jsPath, data}) => `
   </html>
 `;
 
-export default Html;
+export default Layout;

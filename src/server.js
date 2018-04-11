@@ -6,11 +6,13 @@ import tz from 'moment-timezone';
 import { createStore } from 'redux';
 import {Provider} from 'react-redux';
 import {renderToString} from 'react-dom/server';
-import reducers from './client/reducers';
-import App from './client/App';
-import Html from './client/Html';
-const store = createStore(reducers);
+import App from './shared/App';
+import Layout from './layout';
 import { fetchPopularRepos } from './shared/api';
+import { matchPath, StaticRouter } from 'react-router-dom'
+import routes from './shared/routes';
+// import reducers from './reducers';
+// const store = createStore(reducers);
 
 const port = (process.env.NODE_ENV === 'production') ? 80 : 3000;
 const server = express();
@@ -19,20 +21,28 @@ const server = express();
 server.use(cors());
 server.use(express.static('dist/public'));
 
-server.get('*', (req, res) => {
-    fetchPopularRepos().then((data) => {
-        // console.log('data: ', data);
+server.get('*', (req, res, next) => {
+    const activeRoute = routes.find((route) => matchPath(req.url, route)) || {};
+
+    const promise = activeRoute.fetchInitialData ? activeRoute.fetchInitialData(req.path) : Promise.resolve();
+
+    promise.then((data) => {
+        const context = { data };
         const title = 'React Server Rendering';
         // create html string of app body to insert into html template
+
+        console.log(req.url);
         const body = renderToString(
             // <Provider store={store}>
-                <App data={data}/>
+                <StaticRouter location={req.url} context={context}>
+                    <App />
+                </StaticRouter>
             // </Provider>
         );
-        const cssPath = (process.env.NODE_ENV === 'production' ? './server-react.1.0.0.min.css' : './styles.css');
-        const jsPath = (process.env.NODE_ENV === 'production' ? './server-react.1.0.0.min.js' : './client.js');
+        const cssPath = (process.env.NODE_ENV === 'production' ? '/server-react.1.0.0.min.css' : '/styles.css');
+        const jsPath = (process.env.NODE_ENV === 'production' ? '/server-react.1.0.0.min.js' : '/browser.js');
         res.send(
-            Html({
+            Layout({
                 title,
                 body,
                 cssPath,
@@ -40,7 +50,8 @@ server.get('*', (req, res) => {
                 data
             })
         );
-    });
+
+    }).catch(next);
 });
 
 server.listen(port, function() {

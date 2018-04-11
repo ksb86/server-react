@@ -9,7 +9,7 @@ import {
     Connect
 } from 'react-redux';
 
-import './Counter.less';
+import '../less/Counter.less';
 
 class Counter extends React.Component {
     upCounter = () => {

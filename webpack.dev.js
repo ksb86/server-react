@@ -13,12 +13,6 @@ module.exports = [{
     },
     target: 'node',
     externals: nodeExternals(),
-    plugins: [
-        new ExtractTextPlugin('public/styles.css'),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development')
-        })
-    ],
     module: {
         rules: [
             {
@@ -42,13 +36,22 @@ module.exports = [{
                 )
             }
         ]
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin('public/styles.css'),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
+        }),
+        new webpack.DefinePlugin({
+            __isBrowser__: 'false'
+        })
+    ]
 }, {
-    // CLIENT
-    entry: './src/client/index.js',
+    // BROWSER
+    entry: './src/browser.js',
     output: {
         path: path.resolve(__dirname, 'dist/public'),
-        filename: 'client.js'
+        filename: 'browser.js'
     },
     node: {
         __dirname: false
@@ -83,6 +86,9 @@ module.exports = [{
         new ExtractTextPlugin('styles.css'),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development')
+        }),
+        new webpack.DefinePlugin({
+            __isBrowser__: 'true'
         })
     ]
 }];
