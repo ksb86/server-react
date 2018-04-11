@@ -3,31 +3,23 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 
 export default function Navbar() {
-    const languages = [
+    const pages = [
         {
-            name: 'All',
-            param: 'all'
+            name: 'Foo',
+            param: 'foo'
         }, {
-            name: 'JavaScript',
-            param: 'javascript'
-        }, {
-            name: 'Ruby',
-            param: 'ruby'
-        }, {
-            name: 'Python',
-            param: 'python'
-        }, {
-            name: 'Java',
-            param: 'java'
+            name: 'Bar',
+            param: 'bar'
         }
     ]
 
     return (<ul>
         {
-            languages.map(({name, param}) => (<li key={param}>
-                <NavLink activeStyle={{
-                        fontWeight: 'bold'
-                    }} to={`/popular/${param}`}>
+            pages.map(({name, param}) => (<li key={param}>
+                <NavLink
+                    activeClassName="active-link"
+                    to={`/${param}`}
+                >
                     {name}
                 </NavLink>
             </li>))

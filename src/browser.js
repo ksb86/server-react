@@ -1,7 +1,7 @@
 import React from 'react';
 import {hydrate} from 'react-dom';
-import {createStore} from 'redux'
-import {Provider} from 'react-redux';
+// import {createStore} from 'redux'
+// import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom'
 import App from './shared/App';
 // import reducers from './reducers'
@@ -10,7 +10,7 @@ import App from './shared/App';
 hydrate(
 // <Provider store={store}>
     <BrowserRouter>
-        <App data={window.data}/>
+        <App />
     </BrowserRouter>,
 // </Provider>,
 document.getElementById('root'));

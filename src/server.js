@@ -22,35 +22,26 @@ server.use(cors());
 server.use(express.static('dist/public'));
 
 server.get('*', (req, res, next) => {
-    const activeRoute = routes.find((route) => matchPath(req.url, route)) || {};
+    const title = 'React Server Rendering';
+    // create html string of app body to insert into html template
 
-    const promise = activeRoute.fetchInitialData ? activeRoute.fetchInitialData(req.path) : Promise.resolve();
-
-    promise.then((data) => {
-        const context = { data };
-        const title = 'React Server Rendering';
-        // create html string of app body to insert into html template
-
-        const body = renderToString(
-            // <Provider store={store}>
-                <StaticRouter location={req.url} context={context}>
-                    <App />
-                </StaticRouter>
-            // </Provider>
-        );
-        const cssPath = (process.env.NODE_ENV === 'production' ? '/server-react.1.0.0.min.css' : '/styles.css');
-        const jsPath = (process.env.NODE_ENV === 'production' ? '/server-react.1.0.0.min.js' : '/browser.js');
-        res.send(
-            Layout({
-                title,
-                body,
-                cssPath,
-                jsPath,
-                data
-            })
-        );
-
-    }).catch(next);
+    const body = renderToString(
+        // <Provider store={store}>
+            <StaticRouter location={req.url}>
+                <App />
+            </StaticRouter>
+        // </Provider>
+    );
+    const cssPath = (process.env.NODE_ENV === 'production' ? '/server-react.1.0.0.min.css' : '/styles.css');
+    const jsPath = (process.env.NODE_ENV === 'production' ? '/server-react.1.0.0.min.js' : '/browser.js');
+    res.send(
+        Layout({
+            title,
+            body,
+            cssPath,
+            jsPath
+        })
+    );
 });
 
 server.listen(port, function() {
