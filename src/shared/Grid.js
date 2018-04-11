@@ -37,9 +37,6 @@ class Grid extends Component {
   render() {
     const { repos } = this.state
 
-    if (!repos) {
-        debugger;
-    }
     return (
       <ul style={{display: 'flex', flexWrap: 'wrap'}}>
         {repos.map(({ name, owner, stargazers_count, html_url }) => (
